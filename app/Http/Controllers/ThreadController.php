@@ -19,6 +19,11 @@ class ThreadController extends Controller
         return view('threads.index', compact('threads'));
     }
 
+    public function __construct()
+    {
+        $this->middleware('auth')->only('store');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -37,7 +42,13 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $thread = Thread::create([
+            'user_id' => auth()->id(),
+            'title' => request('title'),
+            'body' => request('body')
+        ]);
+
+        return redirect($thread->path());
     }
 
     /**
