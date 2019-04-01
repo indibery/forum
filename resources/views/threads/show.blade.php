@@ -32,17 +32,17 @@
             <form method="POST" action="{{ $thread->path() . '/replies' }}">
                 @csrf
                 <div class="form-group">
-                    <textarea type="text" name="body" class="fom-control" placeholder="Have something to say?"
-                        rows="5"></textarea>
+                    <textarea type="text" name="body" class="form-control" placeholder="Have something to say?" rows="5"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Post<button>
+                <button type="submit" class="btn btn-primary">Post</button>
             </form>
         </div>
     </div>
     @endauth
+
     @guest
     <p class="text-center">Please <a href="{{ route('login') }}">sign in</a> to participate in this discussion.
-        @endguest
+    @endguest
 </div>
 
 @endsection

@@ -14,14 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/threads', 'ThreadController@index');
+// Route::get('/threads', 'ThreadController@index');
+// Route::post('/threads', 'ThreadController@store');
+// Route::get('/threads/create', 'ThreadController@create');
+// Route::get('/threads/{thread}', 'ThreadController@show');
+// index, create, store, show 등이 모두 갖추어져 있는 경우에는 라우트 파일에 resource로 등록
+Route::resource('threads', 'ThreadController');
 
-Route::post('/threads', 'ThreadController@store');
+Route::post('/threads/{thread}/replies', 'ReplyController@store');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/threads/{thread}', 'ThreadController@show');
-
-Route::post('/threads/{thread}/replies', 'ReplyController@store');
