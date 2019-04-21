@@ -14,14 +14,14 @@
                             <label for="channel">Choose a Channel:</label>
                             <select name="channel_id" id="channel_id" class="form-controll" required>
                                 <option value="">Choose One...</option>
-                                @foreach(App\Channel::all() as $channel)
+                                @foreach($channels as $channel)
+
                                 <option value="{{ $channel->id }}" 
                                     {{ old('channel_id') == $channel->id ? 'selected' : '' }}>{{ $channel->name }}
                                 </option>
                                 @endforeach
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label for="title">Title:</label>
                             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}"
