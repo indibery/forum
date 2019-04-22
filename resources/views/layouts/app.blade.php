@@ -37,9 +37,16 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/threads">All Threads</a>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown">
+                                Browse
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/threads">All Threads</a>
+                                @auth
+                                <a href="/threads?by={{ auth()->user()->name }}" class="dropdown-item">My Threads</a>
+                                @endauth
+                            </div>
                         </li>
 
                         <li class="nav-item">
