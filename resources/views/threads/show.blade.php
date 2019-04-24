@@ -5,7 +5,7 @@
 
 <div class="container">
 
-    <div class="row justify-content-center">
+    <div class="row justify">
         <div class="col-md-8">
             <div class="card mb-3">
                 <div class="card-header">
@@ -16,33 +16,44 @@
                     {{ $thread->body }}
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            @foreach($thread->replies as $reply)
-            @include('threads.reply')
+            @foreach($replies as $reply)
+                @include('threads.reply')
             @endforeach
-        </div>
-    </div>
-    @auth
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+
+            {{ $replies->links() }}
+
+            @auth
+
             <form method="POST" action="{{ $thread->path() . '/replies' }}">
                 @csrf
                 <div class="form-group">
-                    <textarea type="text" name="body" class="form-control" placeholder="Have something to say?" rows="5"></textarea>
+                    <textarea type="text" name="body" class="form-control" placeholder="Have something to say?"
+                        rows="5"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Post</button>
             </form>
+
+            @endauth
+
+            @guest
+            <p class="text-center">Please <a href="{{ route('login') }}">sign in</a> to participate in this discussion.
+            @endguest
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    이 스레드는 {{ $thread->created_at->diffForHumans() }}에 작성되었고 
+                    현재 {{ $thread->replies_count }} 개의 댓글이 있습니다.
+                </div>
+            </div>
         </div>
     </div>
-    @endauth
 
-    @guest
-    <p class="text-center">Please <a href="{{ route('login') }}">sign in</a> to participate in this discussion.
-    @endguest
+
+
 </div>
 
 @endsection
