@@ -19,6 +19,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        body { padding-bottom: 100px; }
+        .level { display: flex; align-items: right; }
+        .flex { flex: 1; }
+    </style>
 </head>
 
 <body>
@@ -42,10 +48,13 @@
                                 Browse
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/threads">All Threads</a>
+                                <a class="dropdown-item" href="/threads">모든 게시물</a>
                                 @auth
-                                <a href="/threads?by={{ auth()->user()->name }}" class="dropdown-item">My Threads</a>
+                                <a href="/threads?by={{ auth()->user()->name }}" class="dropdown-item">나의 게시물</a>
                                 @endauth
+                                <a href="/threads?popular=1" class="dropdown-item">인기 게시물</a>
+
+
                             </div>
                         </li>
 
