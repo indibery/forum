@@ -6,16 +6,17 @@
                     {{ $reply->owner->name }}
                 </a> said {{ $reply->created_at->diffForHumans() }}...
             </h5>
-        </div>
+        
 
-        <div>
-            <form method="POST" action="/replies/{{ $reply->id }}/favorites">
-            @csrf
+            <div>
+                <form method="POST" action="/replies/{{ $reply->id }}/favorites">
+                @csrf
 
-                <button type="submit" class="btn btn-outline-primary"
-                    {{ $reply->isFavorited() ? 'disabled' : ''}}>좋아요
-                    {{ $reply->favorites()->count() }}개</button>
-            </form>
+                    <button type="submit" class="btn btn-outline-primary"
+                        {{ $reply->isFavorited() ? 'disabled' : ''}}>좋아요
+                        {{ $reply->favorites()->count() }}개</button>
+                </form>
+            </div>
         </div>
     </div>
 
