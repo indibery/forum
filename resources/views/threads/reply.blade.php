@@ -14,7 +14,7 @@
 
                     <button type="submit" class="btn btn-outline-primary"
                         {{ $reply->isFavorited() ? 'disabled' : ''}}>좋아요
-                        {{ $reply->favorites()->count() }}개</button>
+                        {{ $reply->favorites_count }}개</button>
                 </form>
             </div>
         </div>
