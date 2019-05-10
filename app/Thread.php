@@ -8,6 +8,8 @@ class Thread extends Model
 {
     protected $guarded = [];
 
+    protected $with = ['creator'];
+
 
     protected static function boot()
     {
@@ -26,9 +28,10 @@ class Thread extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class)
-            ->withCount('favorites')
-            ->with('owner');
+        return $this->hasMany(Reply::class);
+//            ->withCount('favorites')
+//            ->with('owner');
+// global scope 를 이용하기 위해 지움 with는 편리하지만 쿼리를 자주 불러오게 만듬
     }
 
     public function getReplyCountAttribute()
