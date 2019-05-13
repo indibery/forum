@@ -9,21 +9,23 @@
         <div class="col-md-8">
             <div class="card mb-2">
                 <div class="card-header">
-                    <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> posted:
-                    {{ $thread->title }}
+                    <div class="level">
+                        <h5 class="flex">
+                            <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> posted:
+                            {{ $thread->title }}
+                        </h5>
 
-                    @if (Auth::check())
-                    <form action="{{ $thread->path() }}" method="POST">
-                        @csrf
-                        @method('DELETE')
+                        @can('update', $thread)
+                        <form action="{{ $thread->path() }}" method="POST">
+                            @csrf
+                            @method('DELETE')
 
-                        <button class="btn btn-link">삭제</button>
-                    </form>
-                    @endif
+                            <button class="btn btn-link">삭제</button>
+                        </form>
+                        @endcan
 
+                    </div>
                 </div>
-
-
                 <div class="card-body">
                     {{ $thread->body }}
                 </div>

@@ -62,26 +62,27 @@ class CreateThreadTest extends TestCase
     }
 
     /** @test */
-    public function guests_cannot_delete_threads()
+    public function unauthorized_users_may_not_delete_threads()
     {
 
         $thread = create('App\Thread');
 
-        $response = $this->delete($thread->path());
-            //->assertRedirect('/login');
+        $this->delete($thread->path())->assertRedirect('/login');
+        //질문 왜? $this->delete($thread->path())->assertRedirect('/login');
+        //에러가 안나지 아래 줄에 넣으면 에러가 나는데
 
-
-        $response->assertRedirect('/login');
+        $this->signIn();
+        $this->delete($thread->path())->assertStatus(403);
 
     }
 
 
     /** @test */
-    public function a_thread_can_be_deleted()
+    public function authorized_users_can_delete_threads()
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Thread', ['user_id' => auth()->id()]);
         $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
         $response = $this->json('DELETE', $thread->path());
