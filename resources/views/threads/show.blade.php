@@ -7,18 +7,30 @@
 
     <div class="row justify">
         <div class="col-md-8">
-            <div class="card mb-3">
+            <div class="card mb-2">
                 <div class="card-header">
                     <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> posted:
                     {{ $thread->title }}
+
+                    @if (Auth::check())
+                    <form action="{{ $thread->path() }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn btn-link">삭제</button>
+                    </form>
+                    @endif
+
                 </div>
+
+
                 <div class="card-body">
                     {{ $thread->body }}
                 </div>
             </div>
 
             @foreach($replies as $reply)
-                @include('threads.reply')
+            @include('threads.reply')
             @endforeach
 
             {{ $replies->links() }}
@@ -38,14 +50,14 @@
 
             @guest
             <p class="text-center">Please <a href="{{ route('login') }}">sign in</a> to participate in this discussion.
-            @endguest
+                @endguest
         </div>
 
 
         <div class="col-md-4">
             <div class="card mb-3">
                 <div class="card-body">
-                    이 스레드는 {{ $thread->created_at->diffForHumans() }}에 작성되었고 
+                    이 스레드는 {{ $thread->created_at->diffForHumans() }}에 작성되었고
                     현재 {{ $thread->replies_count }} 개의 댓글이 있습니다.
                 </div>
             </div>

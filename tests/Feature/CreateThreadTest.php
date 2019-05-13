@@ -25,7 +25,7 @@ class CreateThreadTest extends TestCase
         $this->withoutExceptionHandling();
 
         $this->signIn();
-        
+
         $thread = make('App\Thread');
 
         $response = $this->post('/threads', $thread->toArray());
@@ -40,7 +40,7 @@ class CreateThreadTest extends TestCase
     public function a_thread_requires_a_title()
     {
         $this->publishThread(['title' => null])
-            ->assertSessionHasErrors('title');   
+            ->assertSessionHasErrors('title');
     }
 
     /** @test */
@@ -61,14 +61,45 @@ class CreateThreadTest extends TestCase
             ->assertSessionHasErrors('channel_id');
     }
 
-    
-    public function publishThread($overrides = [])
+    /** @test */
+    public function guests_cannot_delete_threads()
+    {
+
+        $thread = create('App\Thread');
+
+        $response = $this->delete($thread->path());
+            //->assertRedirect('/login');
+
+
+        $response->assertRedirect('/login');
+
+    }
+
+
+    /** @test */
+    public function a_thread_can_be_deleted()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread');
+        $reply = create('App\Reply', ['thread_id' => $thread->id]);
+
+        $response = $this->json('DELETE', $thread->path());
+
+        $response->assertStatus(204);
+
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+    }
+
+
+    protected function publishThread($overrides = [])
     {
         $this->signIn();
 
         $thread = make('App\Thread', $overrides);
 
         return $this->post('/threads', $thread->toArray());
-    } 
+    }
 
 }
