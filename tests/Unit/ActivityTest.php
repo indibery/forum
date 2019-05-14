@@ -52,10 +52,8 @@ class ActivityTest extends TestCase
 
         auth()->user()->activity()->first()->update(['created_at' => Carbon::now()->subWeek()]);
 
-        // When we fetch their feed.
         $feed = Activity::feed(auth()->user());
 
-        // Then, it should be returned in the proper format
         $this->assertTrue($feed->keys()->contains(
             Carbon::now()->format('Y-m-d')
         ));
