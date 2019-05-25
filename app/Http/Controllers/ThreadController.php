@@ -57,7 +57,8 @@ class ThreadController extends Controller
             'title' => request('title'),
             'body' => request('body')
         ]);
-        return redirect($thread->path());
+        return redirect($thread->path())
+            ->with('flash', '글타래를 작성하였습니다!');
     }
     /**
      * Display the specified resource.

@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js?ver=2') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -41,7 +41,12 @@
         @include ('layouts.nav')
 
         @yield('content')
-        </main>
+
+        {{-- <example-component></example-component> --}}
+        {{-- <flash></flash> --}}
+        <flash message="{{ session('flash') }}"></flash>
+        {{-- <flash message="temp"></flash> --}}
+
     </div>
 </body>
 
