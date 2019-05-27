@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Activity;
-use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -41,6 +40,7 @@ class ActivityTest extends TestCase
 
         $this->assertEquals(2, Activity::count());
     }
+<<<<<<< HEAD
 
     /** @test */
     public function it_fetches_a_for_any_user()
@@ -63,4 +63,6 @@ class ActivityTest extends TestCase
         ));
 
     }
+=======
+>>>>>>> parent of 4611137... 27강 Extracting Controller Queries to the Model
 }
